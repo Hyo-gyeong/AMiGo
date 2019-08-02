@@ -1,0 +1,78 @@
+{% extends 'base.html'%}
+{% block content %}
+<head>
+    <style>
+    img {
+        float:left;
+        margin-right:80px;
+        border:2px outset rgb(199, 196, 196);
+    }
+    
+    form, .hh {
+        margin-left:40px;
+    }
+    
+    .card-title {
+        font-size:60px;
+        font-family: 'YanoljaYacheR';
+        margin:100px;
+    }
+    .card-link {
+        float:right;
+        padding-right:20px;
+    }
+    .button {
+      width: 444px;
+      margin-left:23px;
+      text-decoration: none;
+    }
+    .card-text ,.card-comme, .card-comment, .card-texts{
+        font-family: 'Dovemayo-Medium';
+    }
+    .card-texts {
+        font-size:25px;
+    }
+    .card-texts {
+        margin:70px;
+        margin-bottom:100px;
+        text-align: left;
+    }
+    .commentarea{
+        float:left;
+    }
+    .btn {
+        background-color:white;
+        border: 1px solid #008CBA;
+        font-size:13px;
+        padding:5px;
+    }
+    </style>
+</head>
+
+<div class="card contents detail_page">
+        
+        <div class="card-body">
+            <p>{% if sforeigner_detail.image %}<img height="350" width="450" src="{{sforeigner_detail.image.url}}">{% endif %}&emsp;<p class="card-title">{{sforeigner_detail.title}}</p></p>
+        </div>
+        <p class="card-text">&emsp; 성별: {{sforeigner_detail.sex}} 국적: {{sforeigner_detail.nation}} 종교: {{sforeigner_detail.region}} 취미/흥미: {{sforeigner_detail.interest}}</p>
+        <a class="btn btn-outline-info button" href="/chat/lobby/">채팅하기</a><hr>
+        <p class="card-texts">{{sforeigner_detail.body}}</p>
+        <br><br>
+        <form method="POST" action="{% url 'kcomment_create' sforeigner_detail.id %}">
+            {% csrf_token %}
+            <textarea  name = "kcontents commentarea" cols="90" rows="4" placeholder=" 댓글을 작성하세요."></textarea> 
+            <button type="submit" class="btn">댓글 작성</button>
+        </form>
+            {% for kcomments in sforeigner_detail.kcomment.all %}
+            <ul  style="list-style-type:none;">
+                <li class="card-comment">↳{{kcomments.kcontents}} <small><a href="{% url 'kcomment_delete' sforeigner_detail.id kcomments.id %}">✖️</a></small></li>
+            </ul>
+            {% endfor %}<br><br><br>
+            <h6 class="card-subtitle mb-2 text-muted" style="float: left;">{{sforeigner_detail.pub_date}}
+            <a href="{% url 'sforeigner_delete' sforeigner_detail.id %}" class="card-link">삭제</a>
+            <a href="#" class="card-link">수정</a>
+            <a href="{% url 'sforeigner' %}" class="card-link">돌아가기</a></h6>
+        </div>
+        
+{% endblock %}
+

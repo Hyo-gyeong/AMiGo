@@ -1,0 +1,101 @@
+{% extends 'base.html'%} {% block content %}<!-- 단기 거주 외국인의 프로필이 보이는 사이트-->
+<!-- {{sforeigners}} -->
+<head>
+        <style>
+            .dropdown {
+                list-style: none;
+            }
+            .card {
+              float:left;
+              margin-left:50px;
+              margin-bottom:65px;
+              width:550px;
+              height:230px;
+            }
+            .container {
+              margin-left:30px;
+            }
+        </style>
+</head>
+<br>
+  <form action="" method="GET">
+    <div class="container" style="margin-left:50px !important;">
+        <div class="row">
+          <select class="form-control col-1" name = "sex">
+            <option selected disabled hidden>성별</label>
+            <option value="남자">남자</option>
+            <option value="여자">여자</option>
+          </select>
+          <select class="form-control col-1" name = "region">
+            <option selected disabled hidden>거주지역</label>
+            <option value="서울강남">서울강남</option>
+            <option value="서울강북">서울강북</option>
+            <option value="경기북부">경기북부</option>
+            <option value="경기남부">경기남부</option>
+            <option value="충청북도">충청북도</option>
+            <option value="충청남도">충청남도</option>
+            <option value="전라북도">전라북도</option>
+            <option value="전라남도">전라남도</option>
+            <option value="경상북도">경상북도</option>
+            <option value="경상남도">경상남도</option>
+        </select>
+        <select class="form-control col-1" name = "nation">
+          <option value="" selected disabled hidden>국적</option>
+          <option value="일본">일본</option>
+          <option value="미국">미국</option>
+          <option value="중국">중국</option>
+          <option value="아시아">아시아</option>
+          <option value="유럽">유럽</option>
+          <option value="아프리카">아프리카</option>
+        </select>
+        <select class="form-control col-1" name = "interest">
+          <option value="" selected disabled hidden>관심사</option>
+          <option value="스포츠">스포츠</option>
+          <option value="음악">음악</option>
+          <option value="그림">그림</option>
+          <option value="독서">독서</option>
+          <option value="프로그래밍">프로그래밍</option>
+      </select>
+        <input class="form-control col-6" type="text" placeholder="검색어를 입력하세요" name="search">
+        <button style="margin-left:5px; " type="submit" class="col-1 btn btn-secondary">검색</button>
+      </div> 
+    </div>
+  </form>
+  <br>
+    {% for sforeigner in sfposts %}
+    <div class="card ">
+            <div class="row no-gutters">
+              <div class="col-md-6">
+                {% if sforeigner.image %}<img class="card-img" src="{{sforeigner.image.url}}" alt="이미지 없음" class="card-img-top" height=227 weight="300">{% endif %}
+              </div>
+              <div class="col-md-6">
+                <div class="card-body">
+                  <h3 class="card-title">{{sforeigner.title}}</h3>
+                  <p class="card-text">{{sforeigner.sum}} <a href="{% url 'sforeigner_detail' sforeigner.id %}">...more</a></p>
+                  <p class="card-text"><small class="text-muted">{{sforeigner.pub_date}}</small></p>
+                </div>
+              </div>
+            </div>
+          </div>
+     
+          {% endfor %}
+
+          <center>
+            <div style="position:relative; bottom:0; clear:both;">
+                <a href="?page=1">First</a>{% if sfposts.has_previous %}
+                
+                <a href="?page={{sfposts.previous_page_number}}">Previous</a>
+                {% endif %}
+            
+                <span>{{sfposts.number}}</span>
+                <span>of</span>
+                <span>{{sfposts.paginator.num_pages}}</span>
+            
+                {% if sfposts.has_next %}
+                <a href="?page={{sfposts.next_page_number}}">Next</a>
+                
+                {% endif %}<a href="?page={{sfposts.paginator.num_pages}}">Last</a>
+            </div>
+            </center>
+
+{% endblock %}

@@ -1,0 +1,107 @@
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  
+  <style>
+  .detail_page{
+    margin:70px;
+  }
+  @font-face { font-family: 'YanoljaYacheR'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/YanoljaYacheR.woff') format('woff'); font-weight: normal; font-style: normal; }
+  @font-face { font-family: 'Dovemayo-Medium'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/Dovemayo-Medium.woff') format('woff'); font-weight: normal; font-style: normal; }
+  @font-face { font-family: 'KCC-eunyoung'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/KCC-eunyoung-Regular.woff') format('woff'); font-weight: normal; font-style: normal; }    
+  footer, nav{
+    font-family: 'KCC-eunyoung';
+      font-size:20px;
+    }
+    .detail_page {
+        padding:30px;
+    }
+    </style>
+  
+  </head>
+  <body>
+        <header>
+
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <a class="navbar-brand" href="{% url 'index' %}">Home</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                    </button>
+                  
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                      <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                          <a class="nav-link" href="{% url 'about' %}">About</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Korean
+                          </a>
+                          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'korean' %}">Browsing</a>
+                            <a class="dropdown-item" href="{% url 'create_korean' %}">Write</a>
+                          </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Foreigner (SortTerm)
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                              <a class="dropdown-item" href="{% url 'sforeigner' %}">Browsing</a>
+                              <a class="dropdown-item" href="{% url 'create_sforeigner' %}">Write</a>
+                            </div>
+                          </li>
+                          <li class="nav-item dropdown">
+                              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  Foreigner (LongTerm)
+                              </a>
+                              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{% url 'lforeigner' %}">Browsing</a>
+                                <a class="dropdown-item" href="{% url 'create_lforeigner' %}">Write</a>
+                              </div>
+                            </li>
+                            <!--단체모임-->
+                            
+                            <!--여기까지-->
+
+
+
+                            <li class="nav-item active">
+                                {% if user.is_anonymous %}
+                                <a class="nav-link" href="{% url 'signin' %}">로그인</a>
+                                {% else %}
+                                <a class="nav-link" href="">&emsp;&emsp;&emsp;&emsp;{{ user.username }} <strong>님</strong></a>
+                            </li>
+
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{% url 'logout' %}"><strong> 로그아웃</strong></a>    
+                            </li>
+                            
+                                {% endif %}
+                            
+                      </ul>
+                      <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                      </form>
+                    </div>
+                  </nav>
+              </header>
+            
+              {% block content %}
+              {% endblock %}             
+ 
+           
+  <footer class="container">
+    <br><br><br>
+      <p class="float-right"><a href="#">Back to top</a></p>
+      <p>&copy; 2019.7.28  &emsp;&emsp; Colaboration with Y.J.S, S.H.K, L.N.K  &emsp;<a href="#">Help</a></p>
+      <br>
+    </footer>
+  </main>
+</body>
+</html>
+  
+ 
